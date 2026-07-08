@@ -94,12 +94,13 @@ func parseCheatFile(path string) ([]*model.Cheat, error) {
 	cheats := make([]*model.Cheat, 0, len(file.Actions))
 	for _, action := range file.Actions {
 		cheat := &model.Cheat{
-			Tool:     file.Tool,
-			Tags:     file.Tags,
-			Title:    action.Title,
-			Desc:     action.Desc,
-			Command:  action.Command,
-			Filename: path,
+			Tool:        file.Tool,
+			Tags:        file.Tags,
+			InstallInfo: file.Install, // Pass install metadata
+			Title:       action.Title,
+			Desc:        action.Desc,
+			Command:     action.Command,
+			Filename:    path,
 		}
 		cheats = append(cheats, cheat)
 	}

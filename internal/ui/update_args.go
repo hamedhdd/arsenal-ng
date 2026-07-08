@@ -79,6 +79,7 @@ func (m App) submitArgs() (tea.Model, tea.Cmd) {
 
 	if !model.HasEmptyArgs(m.args) {
 		m.FinalCommand = model.BuildCommand(m.selectedCheat.Command, m.args)
+		m.SelectedCheat = m.selectedCheat // Export for tool checking
 		log.Printf("Command built from args: %s", m.FinalCommand)
 		return m, tea.Quit
 	}

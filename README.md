@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <strong>Arsenal-ng helps you find and build commands — it doesn't execute them.</strong><br>
+  <strong>Arsenal-ng helps you find, build, and launch commands.</strong><br>
   You need to install the actual tools (nmap, ffuf, etc.) separately.
 </p>
 
@@ -98,15 +98,17 @@ source ~/.bashrc
 
 ### What Arsenal-ng Does
 
-**Arsenal-ng is a command reference tool, not a command executor.** It helps you:
+**Arsenal-ng is an interactive command builder with automatic tool installation.** It helps you:
 - 🔍 Find the right command syntax for 242 pentesting tools
 - 📝 Fill in command arguments with an interactive form
-- 📋 Get the final command ready to copy and execute
+- 🛠️ **Automatically detect missing tools and offer to install them**
+- 🚀 **Execute the final command directly**, inject it to your terminal, or copy it to the clipboard
 
-**What you need to do:**
-- Install the pentesting tools you want to use (nmap, ffuf, etc.)
-- Arsenal-ng will help you build the commands
-- You execute the commands yourself
+**New in this version:**
+- Arsenal-ng now checks if tools are installed before showing commands
+- If a tool is missing, it offers to install it automatically
+- Supports apt, dnf, pacman, brew, pip, pipx, go, cargo, and git installations
+- You confirm before any installation happens
 
 ### Quick Start
 
@@ -118,7 +120,10 @@ arsenal-ng
 # Use arrow keys to navigate, type to search, Enter to select
 ```
 
-When you select a command and fill in arguments, the app exits and prints the command to your terminal. **You still need to have the tool installed** and execute the command yourself.
+When you select a command and fill in arguments:
+1. Arsenal-ng checks if the tool is installed
+2. **If missing:** Prompts you to install it automatically
+3. **If installed:** Prints the command to your terminal
 
 ### Basic Workflow
 
@@ -126,7 +131,7 @@ When you select a command and fill in arguments, the app exits and prints the co
 2. **Navigate results**: Use arrow keys to browse matching commands
 3. **Select command**: Press Enter on the desired command
 4. **Fill arguments**: If the command has `{{placeholders}}`, fill them in
-5. **Execute**: Press Enter to write the command to your terminal
+5. **Proceed**: Choose to execute directly, inject to terminal, or copy to clipboard
 
 ### Example Session
 
@@ -134,30 +139,41 @@ When you select a command and fill in arguments, the app exits and prints the co
 # 1. Launch arsenal-ng
 arsenal-ng
 
-# 2. Set global variables (type in search box)
-set target=10.10.10.10
+# 2. Search for "403bypasser" and select a command
 
-# 3. Search for nmap commands by typing "nmap"
+# 3. Fill in the URL: https://example.com/admin
 
-# 4. Select "nmap - syn stealth scan"
-# The {{target}} placeholder is auto-filled with 10.10.10.10!
+# 4. Arsenal-ng checks if 403bypasser is installed:
+⚠️  Tool '403bypasser' is not installed.
 
-# 5. App exits and prints the command:
-nmap -sS 10.10.10.10
+Install with: git clone https://github.com/yunemse48/403bypasser && cd 403bypasser && pip install -r requirements.txt
 
-# 6. Execute the command manually (arsenal-ng doesn't run it for you)
-# Make sure nmap is installed first:
-sudo apt install nmap  # or: brew install nmap
+Would you like to install it now? [y/N]: y
 
-# 7. Now run the command
-nmap -sS 10.10.10.10
+# 5. Tool installs automatically
+
+✅ 403bypasser installed successfully!
+
+# 6. Command is ready! Choose how to proceed:
+🚀 Command ready: 403bypasser -u https://example.com/admin
+
+How would you like to proceed?
+  [1] Execute directly
+  [2] Inject into terminal (TIOCSTI)
+  [3] Copy to clipboard
+  [4] Cancel
+
+Choice [1]: 1
+
+# 7. The command executes directly!
 ```
 
 ### Important Notes
 
-- **Arsenal-ng references 242 pentesting tools** — you need to install whichever ones you want to use
-- The app doesn't execute commands — it helps you build them correctly
-- Commands are either injected into your terminal (Linux with TIOCSTI) or printed to stdout
+- **Automatic tool detection** — Arsenal-ng checks if tools exist before showing commands
+- **Optional auto-installation** — You're prompted before any installation happens
+- **Multiple package managers supported** — apt, dnf, pacman, brew, pip, pipx, go, cargo, git
+- **242 tool references included** — Installation info available for commonly used tools
 - Global variables (like `set ip=10.10.10.10`) auto-fill across all commands in your session
 
 ### Keyboard Shortcuts

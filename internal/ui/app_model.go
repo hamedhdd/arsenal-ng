@@ -53,8 +53,9 @@ type App struct {
 	argCursor     int
 
 	// Result (exported for main to access)
-	FinalCommand string
-	Cancelled    bool
+	FinalCommand  string
+	Cancelled     bool
+	SelectedCheat *model.Cheat // The cheat that was selected (for tool checking)
 
 	// Tools view state
 	toolsTable    table.Model

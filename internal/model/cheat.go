@@ -12,9 +12,24 @@ package model
 // CheatFile represents the structure of a YAML cheat file.
 // Each file contains one tool with multiple actions.
 type CheatFile struct {
-	Tool    string   `yaml:"tool"`    // Tool name (e.g., "nmap", "ffuf")
-	Tags    []string `yaml:"tags"`    // Tags (e.g., ["scan", "recon"])
-	Actions []Action `yaml:"actions"` // List of commands
+	Tool    string      `yaml:"tool"`              // Tool name (e.g., "nmap", "ffuf")
+	Tags    []string    `yaml:"tags"`              // Tags (e.g., ["scan", "recon"])
+	Install *InstallCmd `yaml:"install,omitempty"` // Optional installation commands
+	Actions []Action    `yaml:"actions"`           // List of commands
+}
+
+// InstallCmd contains platform-specific installation commands.
+type InstallCmd struct {
+	Apt     string `yaml:"apt,omitempty"`     // Debian/Ubuntu: apt install
+	Dnf     string `yaml:"dnf,omitempty"`     // Fedora/RHEL: dnf install
+	Pacman  string `yaml:"pacman,omitempty"`  // Arch: pacman -S
+	Brew    string `yaml:"brew,omitempty"`    // macOS: brew install
+	Go      string `yaml:"go,omitempty"`      // go install
+	Pip     string `yaml:"pip,omitempty"`     // pip install
+	Pipx    string `yaml:"pipx,omitempty"`    // pipx install
+	Cargo   string `yaml:"cargo,omitempty"`   // cargo install
+	Git     string `yaml:"git,omitempty"`     // git clone + manual build
+	Manual  string `yaml:"manual,omitempty"`  // Custom install instructions
 }
 
 // Action represents a single command entry in a cheat file.
@@ -31,12 +46,13 @@ type Action struct {
 // Cheat is the runtime representation of a command.
 // It's an enriched, flattened version of CheatFile + Action.
 type Cheat struct {
-	Tool     string   // Parent tool name
-	Tags     []string // Inherited from parent CheatFile
-	Title    string   // Command title
-	Desc     string   // Command description
-	Command  string   // Command template with {{placeholders}}
-	Filename string   // Source file path (for debugging)
+	Tool        string      // Parent tool name
+	Tags        []string    // Inherited from parent CheatFile
+	InstallInfo *InstallCmd // Installation commands (inherited from CheatFile)
+	Title       string      // Command title
+	Desc        string      // Command description
+	Command     string      // Command template with {{placeholders}}
+	Filename    string      // Source file path (for debugging)
 }
 
 // Argument represents a placeholder in a command template.

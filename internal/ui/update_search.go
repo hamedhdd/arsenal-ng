@@ -120,6 +120,7 @@ func (m App) handleEnter() (tea.Model, tea.Cmd) {
 	// If arguments exist, always show the input form (even if pre-filled with variables)
 	if len(m.args) == 0 {
 		m.FinalCommand = model.BuildCommand(m.selectedCheat.Command, m.args)
+		m.SelectedCheat = m.selectedCheat // Export for tool checking
 		log.Printf("Command ready (no arguments): %s", m.FinalCommand)
 		return m, tea.Quit
 	}

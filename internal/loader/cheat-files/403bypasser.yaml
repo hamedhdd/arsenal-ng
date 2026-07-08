@@ -1,6 +1,11 @@
 tool: 403bypasser
 tags: [web, security, pentest, bypass, reconnaissance, enumeration, bugbounty]
 
+install:
+  git: "git clone https://github.com/yunemse48/403bypasser && cd 403bypasser && pip install -r requirements.txt"
+  pip: "403bypasser"
+  manual: "Visit https://github.com/yunemse48/403bypasser for installation instructions"
+
 actions:
   # === BASIC USAGE ===
   - title: 403bypasser - basic scan
