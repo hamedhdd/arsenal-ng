@@ -357,7 +357,11 @@ make vet
 
 ### Terminal Prefill Not Working (Linux kernel 6.2+)
 
-`arsenal-ng` relies on this feature to prefill the terminal buffer. You have two options to enable this functionality, both of which come with security trade-offs.
+On Linux kernel 6.2+, arsenal-ng cannot inject commands into your terminal due to TIOCSTI being restricted by default.
+
+**Current behavior:** When you select a command, the app exits and the command is **printed to stdout** on a new line. You need to manually copy and execute it.
+
+**To enable terminal prefill** (command appears in your input buffer ready to edit), you have two options:
 
 #### Option 1: Enable TIOCSTI Globally
 The TIOCSTI ioctl is disabled by default in newer Linux kernels for security reasons.
@@ -447,6 +451,7 @@ See [Cheat File Format](#-cheat-file-format) for details.
 
 #### 🐛 Bug Fixes
 
+- **Terminal output formatting** — Fixed TIOCSTI fallback on Linux 6.2+. When TIOCSTI fails, commands now print on a new line (was: appeared on same line as prompt, making them hard to read).
 - **TIOCSTI silent failure fixed** — On Linux kernel 6.2+ where `TIOCSTI` is restricted by default, the app previously swallowed the command silently. It now detects the `EPERM` errno on the first byte, logs a clear message with the fix (`sysctl -w dev.tty.legacy_tiocsti=1`), and falls back to printing the command to stdout so it is never lost.
 - **Windows native support dropped** — Removed the Windows stub. The app targets Linux and macOS only, where proper terminal prefill via TIOCSTI is available.
 

@@ -58,7 +58,7 @@ func ToTerminal(command string) {
 	tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
 	if err != nil {
 		log.Printf("ERROR: Failed to open /dev/tty: %v — falling back to stdout", err)
-		fmt.Println(command)
+		fmt.Printf("\n%s\n", command)
 		return
 	}
 	defer tty.Close()
@@ -70,7 +70,7 @@ func ToTerminal(command string) {
 	oldTermios, err := unix.IoctlGetTermios(fd, tcgets)
 	if err != nil {
 		log.Printf("ERROR: Failed to get terminal settings: %v — falling back to stdout", err)
-		fmt.Println(command)
+		fmt.Printf("\n%s\n", command)
 		return
 	}
 
@@ -80,7 +80,7 @@ func ToTerminal(command string) {
 	newTermios.Lflag &^= unix.ICANON
 	if err := unix.IoctlSetTermios(fd, tcsets, &newTermios); err != nil {
 		log.Printf("ERROR: Failed to set terminal settings: %v — falling back to stdout", err)
-		fmt.Println(command)
+		fmt.Printf("\n%s\n", command)
 		return
 	}
 
@@ -110,7 +110,7 @@ func ToTerminal(command string) {
 	}
 
 	if !injected {
-		fmt.Println(command)
+		fmt.Printf("\n%s\n", command)
 		return
 	}
 
