@@ -8,15 +8,25 @@ package ui
 import (
 	"fmt"
 	"log"
+	"regexp"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
-	"github.com/halilkirazkaya/arsenal-ng/internal/loader"
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/loader"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
 )
+
+// varNamePattern restricts variable names to safe identifiers only.
+// Prevents JSON key injection, null bytes, and path-like names.
+var varNamePattern = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+
+// isValidVarName returns true if name is a safe variable identifier.
+func isValidVarName(name string) bool {
+	return len(name) > 0 && len(name) <= 64 && varNamePattern.MatchString(name)
+}
 
 // =============================================================================
 // Search View Update
@@ -297,6 +307,11 @@ func (m App) handleSetCommand(query string) (bool, App) {
 		name := strings.TrimSpace(parts[0])
 		value := strings.TrimSpace(parts[1])
 		if name != "" && value != "" {
+			if !isValidVarName(name) {
+				m.statusMsg = "✗ Invalid name: use letters, digits, _ or - only"
+				m.statusIsError = true
+				return true, m
+			}
 			if err := m.globals.Set(name, value); err != nil {
 				log.Printf("ERROR: Failed to set variable %s: %v", name, err)
 				m.statusMsg = fmt.Sprintf("✗ Failed to save variable: %v", err)

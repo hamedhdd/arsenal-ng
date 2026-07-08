@@ -8,7 +8,7 @@ package ui
 import (
 	"strings"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
 )
 
 // =============================================================================

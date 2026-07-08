@@ -2,8 +2,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Go-1.24.0+-00ADD8?style=flat&logo=go" alt="Go Version">
-  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-lightgrey" alt="Platform">
-  <img src="https://img.shields.io/github/license/halilkirazkaya/arsenal-ng?color=yellow" alt="License">
+  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey" alt="Platform">
+  <img src="https://img.shields.io/github/license/hamedhdd/arsenal-ng?color=yellow" alt="License">
   <br>
   <img src="https://img.shields.io/badge/Tools-242-blueviolet?style=flat&logo=linux&logoColor=white" alt="Tools Count">
   <img src="https://img.shields.io/badge/Commands-2872-ff69b4?style=flat&logo=gnubash&logoColor=white" alt="Commands Count">
@@ -28,7 +28,7 @@
 ### Option 1: Go Install
 
 ```bash
-go install -v github.com/halilkirazkaya/arsenal-ng/cmd/arsenal-ng@latest
+go install -v github.com/hamedhdd/arsenal-ng/cmd/arsenal-ng@latest
 ```
 > Requires Go 1.24.0 Ensure `$(go env GOPATH)/bin` is in your `$PATH`.
 
@@ -36,7 +36,7 @@ go install -v github.com/halilkirazkaya/arsenal-ng/cmd/arsenal-ng@latest
 ### Option 2: Build from Source Code
 
 ```bash
-git clone https://github.com/halilkirazkaya/arsenal-ng.git
+git clone https://github.com/hamedhdd/arsenal-ng.git
 cd arsenal-ng
 make build
 ./bin/arsenal-ng
@@ -65,7 +65,8 @@ source ~/.bashrc
 |----------|--------|-------|
 | **Linux** | ✅ Fully Supported | Requires kernel 6.2+ configuration for terminal prefill (see [Troubleshooting](#-troubleshooting)) |
 | **macOS** | ✅ Fully Supported | Works out of the box, no additional configuration needed |
-| **Windows** | ⚠️ WSL Only | Native (CMD/PowerShell) is **unsupported**. Use via **WSL**. |
+| **WSL** | ✅ Supported | Runs the Linux binary under Windows. Same kernel 6.2+ note applies |
+| **Windows (native)** | ❌ Not Supported | Use Linux, macOS, or WSL |
 
 ---
 
@@ -293,7 +294,7 @@ actions:
 ### Building from Source
 
 ```bash
-git clone https://github.com/halilkirazkaya/arsenal-ng.git
+git clone https://github.com/hamedhdd/arsenal-ng.git
 cd arsenal-ng
 make build
 # Binary will be in ./bin/arsenal-ng
@@ -365,26 +366,47 @@ This project is **open source** and contributions are welcome!
 
 ### How to Contribute
 
-- 🔧 **Add a tool**: Create a YAML file in `internal/loader/cheat-files/` and submit a PR
-- 🐛 **Report bugs**: Open an issue with details about the problem
-- 💡 **Suggest features**: Share your ideas for improvements
+- 🔧 **Add a tool**: Create a YAML file in `internal/loader/cheat-files/` and submit a PR to [hamedhdd/arsenal-ng](https://github.com/hamedhdd/arsenal-ng)
+- 🐛 **Report bugs**: [Open an issue](https://github.com/hamedhdd/arsenal-ng/issues) with details about the problem
+- 💡 **Suggest features**: [Share your ideas](https://github.com/hamedhdd/arsenal-ng/issues) for improvements
 - 📝 **Improve documentation**: Help make the README and code comments better
-- ⭐ **Star the project**: Show your support!
+- ⭐ **Star the project**: Show your support at [hamedhdd/arsenal-ng](https://github.com/hamedhdd/arsenal-ng)!
 
 ### Adding Cheat Sheets
 
 The easiest way to contribute is by adding new cheat sheet YAML files:
 
-1. Fork the repository
+1. Fork [https://github.com/hamedhdd/arsenal-ng](https://github.com/hamedhdd/arsenal-ng)
 2. Add your YAML file(s) to `internal/loader/cheat-files/`
 3. Follow the existing format and style
 4. Test your changes locally
-5. Submit a pull request
+5. Submit a pull request to `https://github.com/hamedhdd/arsenal-ng`
 
 See [Cheat File Format](#-cheat-file-format) for details.
 
 ---
 
+## 📋 Changelog
+
+### Security & Stability Fixes (2026-07-08)
+
+#### 🔒 Security
+
+- **Variable name validation** — `set` commands now enforce `^[a-zA-Z0-9_-]+$` (max 64 chars). Malformed names (null bytes, path separators, special chars) are rejected with a clear error message before reaching the JSON store.
+- **`XDG_CONFIG_HOME` path validation** — The environment variable is now only accepted if it is an absolute path. Relative or empty values fall back to the default `~/.config/arsenal-ng`, preventing environment-based redirection of the config store.
+- **Pinned GoReleaser CI version** — Changed `version: latest` to `version: "~> v2"` in the release workflow, preventing a compromised upstream `latest` tag from running arbitrary code in the build pipeline.
+
+#### 🐛 Bug Fixes
+
+- **TIOCSTI silent failure fixed** — On Linux kernel 6.2+ where `TIOCSTI` is restricted by default, the app previously swallowed the command silently. It now detects the `EPERM` errno on the first byte, logs a clear message with the fix (`sysctl -w dev.tty.legacy_tiocsti=1`), and falls back to printing the command to stdout so it is never lost.
+- **Windows native support dropped** — Removed the Windows stub. The app targets Linux and macOS only, where proper terminal prefill via TIOCSTI is available.
+
+#### 🧹 Code Quality
+
+- **Removed deprecated `rand.Seed`** — Dropped the `rand.Seed(time.Now().UnixNano())` call deprecated since Go 1.20. The global RNG is auto-seeded in modern Go versions.
+
+---
+
 <p align="center">
-  Made with ❤️ and <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>
+  Made with ❤️ and <a href="https://github.com/hamedhdd">HamedHD.</a>
 </p>

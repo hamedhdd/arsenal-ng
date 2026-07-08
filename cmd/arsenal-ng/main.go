@@ -11,10 +11,10 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
-	"github.com/halilkirazkaya/arsenal-ng/internal/loader"
-	"github.com/halilkirazkaya/arsenal-ng/internal/output"
-	"github.com/halilkirazkaya/arsenal-ng/internal/ui"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/loader"
+	"github.com/hamedhdd/arsenal-ng/internal/output"
+	"github.com/hamedhdd/arsenal-ng/internal/ui"
 )
 
 func main() {

@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
 )
 
 // =============================================================================

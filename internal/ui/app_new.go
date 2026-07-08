@@ -12,9 +12,9 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
-	"github.com/halilkirazkaya/arsenal-ng/internal/state"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/state"
 )
 
 // =============================================================================

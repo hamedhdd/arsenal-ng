@@ -10,8 +10,8 @@ import (
 	"github.com/charmbracelet/bubbles/table"
 	"github.com/charmbracelet/bubbles/textinput"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
-	"github.com/halilkirazkaya/arsenal-ng/internal/state"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/state"
 )
 
 // =============================================================================

@@ -1,4 +1,4 @@
-module github.com/halilkirazkaya/arsenal-ng
+module github.com/hamedhdd/arsenal-ng
 
 go 1.24.0
 

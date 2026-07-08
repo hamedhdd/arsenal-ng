@@ -10,7 +10,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
 )
 
 // =============================================================================

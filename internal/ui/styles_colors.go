@@ -7,11 +7,10 @@ package ui
 
 import (
 	"math/rand"
-	"time"
 
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
 )
 
 // =============================================================================
@@ -30,7 +29,7 @@ var (
 var logoColor lipgloss.Color
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
+	// rand.Seed is deprecated since Go 1.20 — the global source is auto-seeded.
 	logoColor = lipgloss.Color(config.TagColors[rand.Intn(len(config.TagColors))])
 	logoStyle = lipgloss.NewStyle().Foreground(logoColor).Bold(true)
 }

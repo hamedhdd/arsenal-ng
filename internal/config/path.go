@@ -25,8 +25,10 @@ func GetConfigDir() (string, error) {
 
 	switch runtime.GOOS {
 	case "linux":
-		// XDG_CONFIG_HOME takes precedence
-		if xdgConfig := os.Getenv("XDG_CONFIG_HOME"); xdgConfig != "" {
+		// XDG_CONFIG_HOME takes precedence, but only if it is an absolute path.
+		// Reject relative paths to prevent an attacker-controlled environment
+		// variable from redirecting where secrets are read/written.
+		if xdgConfig := os.Getenv("XDG_CONFIG_HOME"); xdgConfig != "" && filepath.IsAbs(xdgConfig) {
 			configDir = filepath.Join(xdgConfig, AppName)
 		} else {
 			// Default: ~/.config/arsenal-ng

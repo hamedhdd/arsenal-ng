@@ -13,7 +13,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/model"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
 )
 
 // =============================================================================

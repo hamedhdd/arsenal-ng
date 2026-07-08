@@ -9,7 +9,7 @@ package ui
 import (
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/halilkirazkaya/arsenal-ng/internal/config"
+	"github.com/hamedhdd/arsenal-ng/internal/config"
 )
 
 // =============================================================================
