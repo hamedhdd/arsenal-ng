@@ -10,11 +10,16 @@
 </p>
 
 <p align="center">
-  <b>🎯 Modern pentest command launcher written in Go!</b>
+  <b>🎯 Interactive pentest cheat sheet and command builder!</b>
 </p>
 
 <p align="center">
   Inspired by <a href="https://github.com/Orange-Cyberdefense/arsenal">arsenal</a>, rewritten from scratch with a focus on simplicity, speed and developer experience.
+</p>
+
+<p align="center">
+  <strong>Arsenal-ng helps you find and build commands — it doesn't execute them.</strong><br>
+  You need to install the actual tools (nmap, ffuf, etc.) separately.
 </p>
 
 <p align="center">
@@ -84,11 +89,24 @@ source ~/.bashrc
 | 📊 **Tools View** | Browse all available tools with command counts in a paginated table |
 | 💡 **Command Hints** | Interactive hints for special commands (`set`, `unset`, `variables`, `tools`) |
 | ❓ **Built-in Help** | Press `?` for comprehensive help screen with all shortcuts |
-| 🖥️ **Terminal Integration** | Commands are written to terminal input buffer for easy editing before execution |
+| � **Command Builder** | Builds complete commands with filled arguments ready to copy and execute |
+| 🛠️ **242 Tool References** | Cheat sheets for nmap, ffuf, gobuster, impacket, bloodhound, and 237 more (tools not included - install separately) |
 
 ---
 
 ## 🚀 Usage
+
+### What Arsenal-ng Does
+
+**Arsenal-ng is a command reference tool, not a command executor.** It helps you:
+- 🔍 Find the right command syntax for 242 pentesting tools
+- 📝 Fill in command arguments with an interactive form
+- 📋 Get the final command ready to copy and execute
+
+**What you need to do:**
+- Install the pentesting tools you want to use (nmap, ffuf, etc.)
+- Arsenal-ng will help you build the commands
+- You execute the commands yourself
 
 ### Quick Start
 
@@ -100,7 +118,7 @@ arsenal-ng
 # Use arrow keys to navigate, type to search, Enter to select
 ```
 
-The selected command will appear in your terminal input buffer, ready to edit and execute.
+When you select a command and fill in arguments, the app exits and prints the command to your terminal. **You still need to have the tool installed** and execute the command yourself.
 
 ### Basic Workflow
 
@@ -119,17 +137,28 @@ arsenal-ng
 # 2. Set global variables (type in search box)
 set target=10.10.10.10
 
-# 3. Search for nmap commands
-nmap
+# 3. Search for nmap commands by typing "nmap"
 
 # 4. Select "nmap - syn stealth scan"
 # The {{target}} placeholder is auto-filled with 10.10.10.10!
 
-# 5. Command appears in terminal:
+# 5. App exits and prints the command:
 nmap -sS 10.10.10.10
 
-# 6. Edit if needed, then press Enter to execute
+# 6. Execute the command manually (arsenal-ng doesn't run it for you)
+# Make sure nmap is installed first:
+sudo apt install nmap  # or: brew install nmap
+
+# 7. Now run the command
+nmap -sS 10.10.10.10
 ```
+
+### Important Notes
+
+- **Arsenal-ng references 242 pentesting tools** — you need to install whichever ones you want to use
+- The app doesn't execute commands — it helps you build them correctly
+- Commands are either injected into your terminal (Linux with TIOCSTI) or printed to stdout
+- Global variables (like `set ip=10.10.10.10`) auto-fill across all commands in your session
 
 ### Keyboard Shortcuts
 
