@@ -5,6 +5,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -16,6 +17,7 @@ import (
 
 	"github.com/hamedhdd/arsenal-ng/internal/config"
 	"github.com/hamedhdd/arsenal-ng/internal/loader"
+	"github.com/hamedhdd/arsenal-ng/internal/model"
 	"github.com/hamedhdd/arsenal-ng/internal/output"
 	"github.com/hamedhdd/arsenal-ng/internal/toolmgr"
 	"github.com/hamedhdd/arsenal-ng/internal/ui"
@@ -29,6 +31,10 @@ func main() {
 }
 
 func run() error {
+	// Parse CLI flags
+	profile := flag.String("profile", "", "Filter tools by a specific tag (e.g., 'web', 'recon')")
+	flag.Parse()
+
 	// Setup logging to file (same directory as variables.json)
 	logPath, err := config.GetLogPath()
 	if err != nil {
@@ -51,6 +57,20 @@ func run() error {
 	if err != nil {
 		log.Printf("ERROR: Failed to load cheats: %v", err)
 		return fmt.Errorf("failed to load cheats: %w", err)
+	}
+
+	if *profile != "" {
+		log.Printf("Filtering cheats by profile: %s", *profile)
+		var filtered []*model.Cheat
+		for _, c := range cheats {
+			for _, tag := range c.Tags {
+				if tag == *profile {
+					filtered = append(filtered, c)
+					break
+				}
+			}
+		}
+		cheats = filtered
 	}
 
 	log.Printf("Loaded %d cheat(s) successfully", len(cheats))
@@ -107,9 +127,8 @@ func run() error {
 						fmt.Printf("\n🔧 Installing %s...\n\n", toolBinary)
 
 						// Execute installation command
-						cmdParts := strings.Fields(installCmd)
-						if len(cmdParts) > 0 {
-							installExec := exec.Command(cmdParts[0], cmdParts[1:]...)
+						if installCmd != "" {
+							installExec := exec.Command("sh", "-c", installCmd)
 							installExec.Stdout = os.Stdout
 							installExec.Stderr = os.Stderr
 							installExec.Stdin = os.Stdin

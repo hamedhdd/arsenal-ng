@@ -116,6 +116,9 @@ source ~/.bashrc
 # Launch the application
 arsenal-ng
 
+# Launch the application and filter tools by a specific tag
+arsenal-ng --profile web
+
 # The TUI will open with all available commands
 # Use arrow keys to navigate, type to search, Enter to select
 ```

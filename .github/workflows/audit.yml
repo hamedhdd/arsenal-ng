@@ -1,0 +1,27 @@
+name: Audit Cheat Sheets
+
+on:
+  pull_request:
+    paths:
+      - 'internal/loader/cheat-files/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'internal/loader/cheat-files/**'
+
+jobs:
+  audit:
+    name: Audit Install Sources
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.0'
+
+      - name: Run audit script
+        run: go run scripts/audit_cheats.go
