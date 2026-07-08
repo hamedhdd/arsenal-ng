@@ -411,6 +411,32 @@ See [Cheat File Format](#-cheat-file-format) for details.
 
 ## 📋 Changelog
 
+### Project Structure & Testing Improvements (2026-07-08)
+
+#### 🧪 Testing
+
+- **Unit test coverage** — Added 38 comprehensive unit tests across core packages:
+  - `internal/model/argument_test.go`: 14 tests covering ParseArguments, BuildCommand, and validation helpers
+  - `internal/loader/search_test.go`: 6 tests for search functionality (multi-term, case sensitivity, field matching)
+  - `internal/loader/loader_test.go`: 4 tests validating all 2872 embedded cheat files parse correctly
+  - `internal/state/variables_test.go`: 14 tests covering CRUD operations, persistence, and command integration
+- **CI quality gate** — GitHub Actions workflow now runs `go vet` and `go test` before build step
+
+#### 🏗️ Code Organization
+
+- **State package refactored** — Split `variables.go` (290 lines) into logical files:
+  - `store.go`: Global struct, CRUD operations, command integration
+  - `persist.go`: Atomic file I/O (LoadFromFile, SaveToFile)
+  - `format.go`: Display helper (FormatList)
+- **Expanded Makefile** — Added 7 targets for improved developer experience:
+  - `make run`: Run directly without building
+  - `make test`: Run all tests
+  - `make vet`: Run go vet
+  - `make lint`: Run golangci-lint
+  - `make clean`: Remove build artifacts
+  - `make install`: Install into $GOPATH/bin
+- **README updated** — Added Makefile targets table and updated contributing guidelines
+
 ### Security & Stability Fixes (2026-07-08)
 
 #### 🔒 Security
