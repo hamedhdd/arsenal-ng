@@ -1,7 +1,7 @@
 <h1 align="center">arsenal-ng</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Go-1.24.0+-00ADD8?style=flat&logo=go" alt="Go Version">
+  <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat&logo=go" alt="Go Version">
   <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey" alt="Platform">
   <img src="https://img.shields.io/github/license/hamedhdd/arsenal-ng?color=yellow" alt="License">
   <br>
@@ -30,7 +30,7 @@
 ```bash
 go install -v github.com/hamedhdd/arsenal-ng/cmd/arsenal-ng@latest
 ```
-> Requires Go 1.24.0 Ensure `$(go env GOPATH)/bin` is in your `$PATH`.
+> Requires Go 1.22+ Ensure `$(go env GOPATH)/bin` is in your `$PATH`.
 
 
 ### Option 2: Build from Source Code
@@ -288,7 +288,7 @@ actions:
 
 ### Prerequisites
 
-- Go 1.24.0 or higher
+- Go 1.22 or higher
 - Make (optional, for using Makefile)
 
 ### Building from Source
