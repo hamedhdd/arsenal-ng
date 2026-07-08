@@ -306,6 +306,18 @@ Or build directly with Go:
 go build -o bin/arsenal-ng ./cmd/arsenal-ng
 ```
 
+### Makefile Targets
+
+| Command | Description |
+|---------|-------------|
+| `make build` | Build the binary into `bin/arsenal-ng` |
+| `make run` | Run directly without producing a binary |
+| `make test` | Run all tests |
+| `make vet` | Run `go vet` on all packages |
+| `make lint` | Run `golangci-lint` (requires installation) |
+| `make clean` | Remove build artifacts |
+| `make install` | Install into `$GOPATH/bin` |
+
 ### Adding New Tools
 
 1. Create a new YAML file in `internal/loader/cheat-files/`
@@ -314,16 +326,27 @@ go build -o bin/arsenal-ng ./cmd/arsenal-ng
 
 ### Testing
 
-After making changes, rebuild and test:
+After making changes, test your changes:
 
 ```bash
+# Run the app directly without building
+make run
+
+# Or build and test the binary
 make build
 ./bin/arsenal-ng
+
+# Run tests (once available)
+make test
+
+# Vet code for common issues
+make vet
 ```
 
 ### Contributing Guidelines
 
 - Follow Go code style conventions
+- Run `make vet` before submitting PRs
 - Keep YAML files organized and well-documented
 - Add descriptive titles and tags to commands
 - Test your changes before submitting PRs
