@@ -18,8 +18,7 @@ import (
 
 // GetConfigDir returns the OS-specific configuration directory for arsenal-ng.
 // Follows XDG Base Directory Specification on Linux, uses ~/Library/Application Support on macOS,
-// and ~/.config on other Unix systems.
-
+// and %LOCALAPPDATA% on Windows.
 func GetConfigDir() (string, error) {
 	var configDir string
 
@@ -47,13 +46,34 @@ func GetConfigDir() (string, error) {
 		}
 		configDir = filepath.Join(home, "Library", "Application Support", AppName)
 
+	case "windows":
+		// Windows: %LOCALAPPDATA%\arsenal-ng
+		// For testing, also respect XDG_CONFIG_HOME if it's an absolute path
+		if xdgConfig := os.Getenv("XDG_CONFIG_HOME"); xdgConfig != "" && filepath.IsAbs(xdgConfig) {
+			configDir = filepath.Join(xdgConfig, AppName)
+		} else if localAppData := os.Getenv("LOCALAPPDATA"); localAppData != "" {
+			configDir = filepath.Join(localAppData, AppName)
+		} else {
+			// Fallback to user home directory
+			home, err := os.UserHomeDir()
+			if err != nil {
+				return "", err
+			}
+			configDir = filepath.Join(home, AppName)
+		}
+
 	default:
 		// Other Unix systems: ~/.config/arsenal-ng
-		home, err := os.UserHomeDir()
-		if err != nil {
-			return "", err
+		// Also respect XDG_CONFIG_HOME for testing
+		if xdgConfig := os.Getenv("XDG_CONFIG_HOME"); xdgConfig != "" && filepath.IsAbs(xdgConfig) {
+			configDir = filepath.Join(xdgConfig, AppName)
+		} else {
+			home, err := os.UserHomeDir()
+			if err != nil {
+				return "", err
+			}
+			configDir = filepath.Join(home, ".config", AppName)
 		}
-		configDir = filepath.Join(home, ".config", AppName)
 	}
 
 	// Ensure directory exists

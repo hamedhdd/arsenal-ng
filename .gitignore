@@ -12,6 +12,7 @@ dist/
 *.test
 *.out
 coverage.out
+coverage
 
 # ===== Go workspace =====
 go.work

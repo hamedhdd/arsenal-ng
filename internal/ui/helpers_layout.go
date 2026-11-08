@@ -13,12 +13,12 @@ import (
 )
 
 // =============================================================================
-// Layout Constants
+// Layout Constants (local to this file)
 // =============================================================================
 
 const (
 	minVisibleItems = 3
-	minWidth        = 40
+	minWidth        = MinWindowWidth / 2 // Half of recommended minimum
 )
 
 // =============================================================================
