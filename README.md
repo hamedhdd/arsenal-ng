@@ -2,11 +2,13 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat&logo=go" alt="Go Version">
-  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20WSL-lightgrey" alt="Platform">
+  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey" alt="Platform">
   <img src="https://img.shields.io/github/license/hamedhdd/arsenal-ng?color=yellow" alt="License">
   <br>
   <img src="https://img.shields.io/badge/Tools-242-blueviolet?style=flat&logo=linux&logoColor=white" alt="Tools Count">
   <img src="https://img.shields.io/badge/Commands-2872-ff69b4?style=flat&logo=gnubash&logoColor=white" alt="Commands Count">
+  <img src="https://img.shields.io/badge/Tests-94%20passing-success?style=flat&logo=go" alt="Tests">
+  <img src="https://img.shields.io/badge/Coverage-65%25-green?style=flat" alt="Coverage">
 </p>
 
 <p align="center">
@@ -70,8 +72,8 @@ source ~/.bashrc
 |----------|--------|-------|
 | **Linux** | ✅ Fully Supported | Requires kernel 6.2+ configuration for terminal prefill (see [Troubleshooting](#-troubleshooting)) |
 | **macOS** | ✅ Fully Supported | Works out of the box, no additional configuration needed |
+| **Windows** | ✅ Fully Supported | Native build support, uses clipboard/stdout for command output |
 | **WSL** | ✅ Supported | Runs the Linux binary under Windows. Same kernel 6.2+ note applies |
-| **Windows (native)** | ❌ Not Supported | Use Linux, macOS, or WSL |
 
 ---
 
